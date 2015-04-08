@@ -1,5 +1,3 @@
-diff --git a/sites/all/modules/contrib/inline_entity_form/inline_entity_form.info b/sites/all/modules/contrib/inline_entity_form/inline_entity_form.info
-index 951cc91..4317799 100644
 --- a/sites/all/modules/contrib/inline_entity_form/inline_entity_form.info
 +++ b/sites/all/modules/contrib/inline_entity_form/inline_entity_form.info
 @@ -1,6 +1,7 @@
@@ -10,8 +8,6 @@ index 951cc91..4317799 100644
  dependencies[] = entity
  dependencies[] = system (>7.14)
  core = 7.x
-diff --git a/sites/all/modules/contrib/inline_entity_form/inline_entity_form.module b/sites/all/modules/contrib/inline_entity_form/inline_entity_form.module
-index 0e39c5d..160b9de 100644
 --- a/sites/all/modules/contrib/inline_entity_form/inline_entity_form.module
 +++ b/sites/all/modules/contrib/inline_entity_form/inline_entity_form.module
 @@ -29,7 +29,14 @@ function inline_entity_form_menu() {
@@ -70,4 +66,4 @@ index 0e39c5d..160b9de 100644
 +function _inline_entity_form_admin_submit(&$form, $form_state) {
 +  variable_set('inline_entity_form_has_draggable', $form_state['values']['has_draggable']);
 +}
-\ No newline at end of file
++
