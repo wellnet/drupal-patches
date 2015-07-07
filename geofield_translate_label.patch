@@ -1,0 +1,11 @@
+--- geofield.widgets.openlayers.inc	(revision )
++++ geofield.widgets.openlayers.inc	(revision )
+@@ -226,7 +226,7 @@
+   $is_settings_form = isset($form['#title']) && $form['#title'] == t('Default value');
+   if (!$is_settings_form && !empty($settings['use_geocoder']) && !empty($settings['geocoder_field'])) {
+     if ($field = field_info_instance($instance['entity_type'], $settings['geocoder_field'], $instance['bundle'])) {
+-      $label = $field['label'];
++      $label = t($field['label']);
+     }
+     else {
+       switch ($settings['geocoder_field']) {
