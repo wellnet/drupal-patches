@@ -1,0 +1,11 @@
+--- includes/og.field.inc	(revision )
++++ includes/og.field.inc	(revision )
+@@ -73,6 +73,8 @@
+   $user_gids = og_get_entity_groups();
+   $user_gids = !empty($user_gids[$target_type]) ? $user_gids[$target_type] : array();
+ 
++  drupal_alter('og_entity_groups', $user_gids);
++
+   // Get the "Other group" group IDs.
+   $other_groups_ids = array_diff($entity_gids, $user_gids);
+ 
