@@ -1,0 +1,42 @@
+diff --git a/sites/all/modules/contrib/search_api_solr/includes/service.inc b/sites/all/modules/contrib/search_api_solr/includes/service.inc
+index be973fd..6e741ad 100644
+--- a/sites/all/modules/contrib/search_api_solr/includes/service.inc
++++ b/sites/all/modules/contrib/search_api_solr/includes/service.inc
+@@ -1550,8 +1550,15 @@ class SearchApiSolrService extends SearchApiAbstractService {
+     if ($value === NULL) {
+       return ($operator == '=' ? '*:* AND -' : '') . "$field:[* TO *]";
+     }
+-    $value = trim($value);
+-    $value = $this->formatFilterValue($value, search_api_extract_inner_type($field_info['type']));
++    if (!is_array($value)) {
++      $value = trim($value);
++      $value = $this->formatFilterValue($value, search_api_extract_inner_type($field_info['type']));
++    }
++    else {
++      foreach($value as &$val) {
++        $val = $this->formatFilterValue(trim($val), search_api_extract_inner_type($field_info['type']));;
++      }
++    }
+     switch ($operator) {
+       case '<>':
+         return "*:* AND -($field:$value)";
+@@ -1563,6 +1570,10 @@ class SearchApiSolrService extends SearchApiAbstractService {
+         return "$field:[$value TO *]";
+       case '>':
+         return "$field:{{$value} TO *}";
++      case 'between':
++        return "$field:[{$value[0]} TO {$value[1]}]";
++      case 'not between':
++        return "-$field:[{$value[0]} TO {$value[1]}]";
+ 
+       default:
+         return "$field:$value";
+@@ -1580,7 +1591,7 @@ class SearchApiSolrService extends SearchApiAbstractService {
+       case 'date':
+         $value = is_numeric($value) ? (int) $value : strtotime($value);
+         if ($value === FALSE) {
+-          return 0;
++          return '*';
+         }
+         $value = format_date($value, 'custom', self::SOLR_DATE_FORMAT, 'UTC');
+         break;
